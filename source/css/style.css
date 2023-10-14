@@ -5,6 +5,10 @@ body{
     padding-bottom: 10em;
 }
 
+.info{
+    color: rgba(255, 0, 0, 0.76);
+}
+
 .card{
     padding: 2em;
 
@@ -47,9 +51,7 @@ body{
     row-gap: 1em;
 }
 
-.card-menu{
 
-}
 
 .menu-item{
     width: 45%;
@@ -91,9 +93,7 @@ body{
     padding: 0 0.5em;
 }
 
-.menu-item-body{
 
-}
 .menu-item-bottom{
     font-size: 10px;
     display: none;
@@ -172,6 +172,6 @@ body{
     border: 2px solid #252525;
     padding: 0.4em;
     border-radius: 0.7em;
-    box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 5px 5px 3px 1px rgba(0, 0, 0, 0.3);
 
 }
