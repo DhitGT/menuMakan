@@ -2,7 +2,7 @@
 // Start the session
 session_start();
 if(isset($_SESSION['login'])){
-    
+    $_SESSION['login'] = '';
 // Unset all session variables
 session_unset();
 
@@ -13,6 +13,13 @@ session_destroy();
 header("Location: index.php");
 exit;
 }else{
-    header('location:index.php');
+    if(isset($_SESSION['namaMeja']) || isset($_SESSION['idMeja'])){
+        $_SESSION['namaMeja'] = '';
+        $_SESSION['idMeja'] = '';
+        session_unset();
+        session_destroy();
+        header('location:thanks.php');
+    }else{
+        header('location:index.php');
+    }
 }
-?>

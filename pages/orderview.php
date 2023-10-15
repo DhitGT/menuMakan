@@ -55,8 +55,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                                     <li>Jumlah : <?php echo $row['Jumlah']; ?></li>
                                 </ul>
                                 <div class="btninput d-flex">
-                                    <button class="btn btn-outline-warning me-3">Diproses</button>
-                                    <button class="btn btn-outline-success">Selesai</button>
+                                    <a class="btn btn-outline-success" href="selesaiOrder.php?id=<?php echo $row['Id'] ?>">Selesai</a>
                                 </div>
                             </div>
                         </div>

@@ -1,36 +1,45 @@
 <?php
-    session_start();
-    $idMeja = $_SESSION['idMeja'];
-    $userName = $_SESSION['namaMeja'];
-
-    require '../source/koneksi.php';
-    $sql  = "SELECT *, MIN(Porsi) AS Porsi, MIN(Harga) AS Harga
-        FROM menu
-        GROUP BY Nama;";
-    $resultMakanan  = mysqli_query($conn, $sql);
-
-    if(isset($_POST['submit'])){
-        $idMenu = 0;
-        $namaMenu = $_POST['namaMenu'];
-        $level = isset($_POST['Level'])? $_POST['Level']: '0';
-        $porsi = isset($_POST['porsi'])?$_POST['porsi']: 'Kecil';
-        $jumlah = $_POST['jumlah'];
-
-        $getIdMenuSql = "SELECT Id FROM menu WHERE Nama = '$namaMenu' AND Porsi = '$porsi'";
-        $idMenuRes = mysqli_fetch_assoc(mysqli_query($conn,$getIdMenuSql));
-        $idMenu = $idMenuRes['Id'];
-        $sqlAddToCart = "INSERT INTO pesanan VALUES ('','$idMeja','$idMenu','$jumlah','$level','cart')";
-        if(mysqli_query($conn,$sqlAddToCart)){
-            echo "<script>alert('Makanan Ditambahkan Ke Cart')</script>";
-        } 
-    }
+session_start();
+require '../source/koneksi.php';
+if(check()){
+    if (isset($_SESSION['idMeja'])) {
+        $idMeja = $_SESSION['idMeja'];
+        $userName = $_SESSION['namaMeja'];
     
-    if(isset($_POST['pesan'])){
-        $sqlCheckout = "UPDATE `pesanan` SET `Status` = 'checkout' WHERE pesanan.IdMeja = '$idMeja' AND pesanan.Status = 'cart'";
-        if(mysqli_query($conn,$sqlCheckout)){
-            echo "<script>alert('Makanan Telah Di Pesan, di tunggu ya :D')</script>";
+        $sql  = "SELECT *, MIN(Porsi) AS Porsi, MIN(Harga) AS Harga
+            FROM menu
+            GROUP BY Nama;";
+        $resultMakanan  = mysqli_query($conn, $sql);
+    
+        if (isset($_POST['submit'])) {
+            $idMenu = 0;
+            $namaMenu = $_POST['namaMenu'];
+            $level = isset($_POST['Level']) ? $_POST['Level'] : '0';
+            $porsi = isset($_POST['porsi']) ? $_POST['porsi'] : 'Kecil';
+            $jumlah = $_POST['jumlah'];
+    
+            $getIdMenuSql = "SELECT Id FROM menu WHERE Nama = '$namaMenu' AND Porsi = '$porsi'";
+            $idMenuRes = mysqli_fetch_assoc(mysqli_query($conn, $getIdMenuSql));
+            $idMenu = $idMenuRes['Id'];
+            $sqlAddToCart = "INSERT INTO pesanan VALUES ('','$idMeja','$idMenu','$jumlah','$level','cart')";
+            if (mysqli_query($conn, $sqlAddToCart)) {
+                echo "<script>alert('Makanan Ditambahkan Ke Cart')</script>";
+            }
         }
+    
+        if (isset($_POST['pesan'])) {
+            $sqlCheckout = "UPDATE `pesanan` SET `Status` = 'checkout' WHERE pesanan.IdMeja = '$idMeja' AND pesanan.Status = 'cart'";
+            if (mysqli_query($conn, $sqlCheckout)) {
+                header("location:waitpage.php");
+            }
+        }
+    }else{
+        header("location:verifmeja.php?id=1");
     }
+}else{
+    header("location:logout.php");
+}
+
 
 ?>
 
@@ -110,9 +119,9 @@
                                             }
                                             ?>
                                         </select>
-                                        <?php endif ?>
-                                        <label for="jumlah" class="form-label ">Jumlah</label>
-                                        <input type="number" name="jumlah" id="jumlah" class="form-control dropdown" value="1">
+                                    <?php endif ?>
+                                    <label for="jumlah" class="form-label ">Jumlah</label>
+                                    <input type="number" name="jumlah" id="jumlah" class="form-control dropdown" value="1">
                                     <button name="submit" class="btn btn-success w-100">+</button>
                                 </form>
                             </div>
@@ -130,12 +139,12 @@
         <section id="minuman">
             <h4 class="mt-2">Minuman</h4>
 
-            
+
         </section>
         <section id="dessert">
             <h4 class="mt-2">Dessert</h4>
 
-            
+
         </section>
 
 
@@ -150,7 +159,7 @@
             <button class="btn btn-success w-100" name="pesan">Pesan</button>
         </form>
     </div>
-    
+
     <script src="../source/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

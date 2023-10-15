@@ -104,6 +104,32 @@ body{
     opacity: 0;
 }
 
+
+.list-wait{
+    width: 100%;
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.menu-item-left{
+    margin-right: 1em;
+    width: 50%;
+    border: 10ox solid red;
+}
+
+.menu-item-right{
+    font-size: 15px;
+}
+
+.menu-item-right p{
+    margin-bottom: 0;
+}
+
+.menu-item-left img{
+    width: 100%;
+    min-height: auto;
+}
+
 .input-section{
     margin-top: 1em;
     display: flex;

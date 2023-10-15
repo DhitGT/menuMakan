@@ -3,11 +3,16 @@
     $idMeja = $_GET['id'];
     $namaMeja = $_SESSION['namaMeja']; 
     require '../source/koneksi.php';
+    if(check()){
+        $sqlCart = "SELECT pesanan.Id, meja.Id as MejaId, Pelangan.Nama, menu.Nama, pesanan.Level, menu.Porsi, menu.Harga, pesanan.Jumlah FROM pesanan INNER JOIN meja INNER JOIN menu INNER JOIN pelangan ON pesanan.IdMeja = meja.Id AND meja.IdPelangan = pelangan.Id AND pesanan.IdMenu = menu.Id WHERE pesanan.idMeja = $idMeja AND pesanan.Status = 'cart'" ;
+        
+        $resultCart = mysqli_query($conn,$sqlCart);
+        $totalharga= 0;
 
-    $sqlCart = "SELECT pesanan.Id, meja.Id as MejaId, Pelangan.Nama, menu.Nama, pesanan.Level, menu.Porsi, menu.Harga, pesanan.Jumlah FROM pesanan INNER JOIN meja INNER JOIN menu INNER JOIN pelangan ON pesanan.IdMeja = meja.Id AND meja.IdPelangan = pelangan.Id AND pesanan.IdMenu = menu.Id WHERE pesanan.idMeja = $idMeja AND pesanan.Status = 'cart'" ;
-    
-    $resultCart = mysqli_query($conn,$sqlCart);
-    $totalharga= 0;
+    }else{
+        header('location:logout.php');
+    }
+
 
 ?>
 
