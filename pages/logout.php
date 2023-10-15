@@ -10,9 +10,9 @@ session_unset();
 session_destroy();
 
 // Redirect or perform other actions after destroying the session
-header("Location: login.php");
+header("Location: index.php");
 exit;
 }else{
-    header('location:login.php');
+    header('location:index.php');
 }
 ?>

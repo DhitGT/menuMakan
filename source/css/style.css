@@ -59,6 +59,8 @@ body{
     border-radius: 0.4em;
     padding: 0.3em;
     transition: all 0.3s;
+    transition: opacity 1.3s;
+    transition: width 0.8s;
     height: 45%;
     box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.3);
 }
@@ -139,18 +141,13 @@ body{
 
 .cart{
     color: #252525;
-    width: 100vw;
-    height: 100vh;
-    display: none;
+    width: 100%;
+    min-height: 100vh;
     background-color: #252525;
     color: aliceblue;
     border-radius: 0.7em;
     padding: 1em;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 90;
-    overflow-y: scroll;
+
 
 }
 
